@@ -1,3 +1,8 @@
+/local.properties
+.DS_Store
+.cxx
+/.idea
+
 # Built application files
 *.apk
 *.aar

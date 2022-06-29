@@ -272,3 +272,4 @@ scene.load(this, new Scene.LoadListener() {
 ```
 
 A scene is an object that represents the 3D map. You need to inject all the required data associated with a resort to instantiate and load a Scene.
+>>>>>>> 0330685ab4da267b27da2a25e1947f242cb92bee
