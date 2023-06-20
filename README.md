@@ -24,24 +24,23 @@ Your app needs to be registered with Mappy to use the Snow Mappy SDK in your app
 
 1. Localize the module level build.gradle file where you want the SDK installed and add the dependency full qualified name:
 
+   [![Maven Central](https://img.shields.io/maven-central/v/io.github.bemappy/mappy.svg?label=Latest%20Version)](https://search.maven.org/artifact/io.github.bemappy/mappy)
+
 ```
 dependencies {
-    implement("io.mappy.sdk:mappy:0.2.0")
+    implement("io.github.bemappy:mappy:0.10.10")
 }
 ```
 
-2. The Mappy Android SDK, for now, is available through Github Packages. So add the following to the project/build.gradle file:
+2. The Mappy Android SDK is available through Maven Central. So add the following to the project/build.gradle file:
 
 ```
-maven { url = uri("https://esri.jfrog.io/artifactory/arcgis") }
-maven {
-    name = "GitHubPackages"
-    url = uri("https://maven.pkg.github.com/FreshworksStudio/mappy-sdk")
-    credentials {
-        username = <GITHUB_USERNAME>
-        password = <GITHUB_PERSONAL_ACCESS_TOKEN>
+repositories {
+        mavenCentral()
+        maven {
+            url 'https://esri.jfrog.io/artifactory/arcgis'
+        }
     }
-}
 ```
 
 The SDK is dependant on a special toolkit dependency stored in Jfrog.
