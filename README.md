@@ -22,18 +22,9 @@ Your app needs to be registered with Mappy to use the Snow Mappy SDK in your app
 
 # Add Snow Mappy SDK to your App
 
-1. Localize the module level build.gradle file where you want the SDK installed and add the dependency full qualified name:
+1. In your project's `build.gradle` file (the one in the root directory), make sure you have the following maven repositories defined in the `repositories` block:
 
-   [![Maven Central](https://img.shields.io/maven-central/v/io.github.bemappy/mappy.svg?label=Latest%20Version)](https://search.maven.org/artifact/io.github.bemappy/mappy)
-
-```
-dependencies {
-    implement("io.github.bemappy:mappy:0.10.10")
-}
-```
-
-2. The Mappy Android SDK is available through Maven Central. So add the following to the project/build.gradle file:
-
+>The SDK is dependant on a special toolkit dependency stored in Jfrog.
 ```
 repositories {
         mavenCentral()
@@ -43,8 +34,15 @@ repositories {
     }
 ```
 
-The SDK is dependant on a special toolkit dependency stored in Jfrog.
-If you are not familiar to Github Personal Access Token, generate it using this guide: [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+2. In your module's `build.gradle` file (usually named `app/build.gradle`), add the library dependency in the `dependencies` block:
+
+   [![Maven Central](https://img.shields.io/maven-central/v/io.github.bemappy/mappy.svg?label=Latest%20Version)](https://search.maven.org/artifact/io.github.bemappy/mappy)
+
+```
+dependencies {
+    implement("io.github.bemappy:mappy:0.10.10")
+}
+```
 
 # Initialize Mappy in Your App
 
