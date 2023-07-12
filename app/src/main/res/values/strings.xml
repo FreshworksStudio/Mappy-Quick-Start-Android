@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Mappy SDK Implementation Example</string>
+
+    <string name="client_id">your_client_id</string>
+    <string name="client_secret">your_client_secret</string>
 </resources>

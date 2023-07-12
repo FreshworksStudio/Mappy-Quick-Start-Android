@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import io.bemappy.sdk.models.Map;
+
+import io.bemappy.sdk.loadables.Map;
+import io.bemappy.sdk.loadables.Scene;
 import io.bemappy.sdk.models.Venue;
-import io.bemappy.sdk.models.Scene;
+import io.bemappy.sdk.models.callbacks.CompletionCallback;
 import io.mappy.mappysdkimplementationexample.databinding.MapActivityBinding;
 
 public class MapActivity extends AppCompatActivity {
@@ -30,23 +33,26 @@ public class MapActivity extends AppCompatActivity {
         Venue venue = getIntent().getParcelableExtra("venue");
 
         Map map = new Map(venue);
-        map.load(this, new Map.LoadListener() {
-            @Override
-            public void onSuccess(@NonNull Map map) {
-                binding.mapView.setMap(map);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                launchToast(throwable);
-            }
-        });
-
         Scene scene = new Scene(venue);
-        scene.load(this, new Scene.LoadListener() {
+
+        map.load(this, false, null, new CompletionCallback<Map>() {
             @Override
-            public void onSuccess(@NonNull Scene scene) {
-                binding.sceneView.setScene(scene);
+            public void onSuccess(Map map) {
+                scene.load(MapActivity.this, new CompletionCallback<Scene>() {
+                    @Override
+                    public void onSuccess(@NonNull Scene scene) {
+                        binding.mapView.setMap(map);
+                        binding.sceneView.setScene(scene);
+
+                        binding.progressBar.setVisibility(View.INVISIBLE);
+                        binding.buttons.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable throwable) {
+                        launchToast(throwable);
+                    }
+                }, false);
             }
 
             @Override
@@ -56,7 +62,7 @@ public class MapActivity extends AppCompatActivity {
         });
 
         binding.buttonChangeView.setOnClickListener((view) -> {
-            if(binding.mapView.getVisibility() == View.VISIBLE) {
+            if (binding.mapView.getVisibility() == View.VISIBLE) {
                 binding.mapView.setVisibility(View.GONE);
                 binding.sceneView.setVisibility(View.VISIBLE);
                 binding.buttonChangeView.setText("3D");
@@ -68,18 +74,18 @@ public class MapActivity extends AppCompatActivity {
         });
 
         binding.buttonDefaultRotation.setOnClickListener((view) -> {
-            if(binding.mapView.getVisibility() == View.VISIBLE) {
-                binding.mapView.rotateToDefault();
+            if (binding.mapView.getVisibility() == View.VISIBLE) {
+                binding.mapView.rotateToNorth();
             } else {
-                binding.sceneView.rotateToDefault();
+                binding.sceneView.rotateToNorth();
             }
         });
 
         binding.buttonDefaultZoom.setOnClickListener((view) -> {
-            if(binding.mapView.getVisibility() == View.VISIBLE) {
-                binding.mapView.zoomToDefault();
+            if (binding.mapView.getVisibility() == View.VISIBLE) {
+                binding.mapView.setInitialViewpoint(true);
             } else {
-                binding.sceneView.zoomToDefault();
+                binding.sceneView.setInitialViewpoint(true, () -> null);
             }
         });
     }
@@ -91,7 +97,8 @@ public class MapActivity extends AppCompatActivity {
     private void launchMessage(String message) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
-                .setPositiveButton("ok", (dialogInterface, i) -> {})
+                .setPositiveButton("ok", (dialogInterface, i) -> {
+                })
                 .create()
                 .show();
     }

@@ -4,18 +4,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import java.util.List;
+
 import io.bemappy.sdk.models.Venue;
 import io.bemappy.sdk.models.callbacks.CompletionCallback;
 import io.bemappy.sdk.services.auth.Mappy;
 import io.bemappy.sdk.services.venue.VenueService;
+import io.mappy.mappysdkimplementationexample.R;
 import io.mappy.mappysdkimplementationexample.databinding.MainJavaActivityBinding;
 import io.mappy.mappysdkimplementationexample.java.adapter.VenuesAdapter;
-import java.util.List;
 
 public class VenuesActivity extends AppCompatActivity {
 
@@ -43,17 +47,18 @@ public class VenuesActivity extends AppCompatActivity {
 
     private void initializeMappy(Mappy mappy, VenueService venueService) {
         binding.progressBar.setVisibility(View.VISIBLE);
-        mappy.initialize(CLIENT_ID, CLIENT_SECRET, new CompletionCallback<Void>() {
-            @Override
-            public void onSuccess(Void result) {
-                getVenues(venueService);
-            }
+        mappy.initialize(getString(R.string.client_id), getString(R.string.client_secret),
+                null, new CompletionCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        getVenues(venueService);
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                launchError(throwable);
-            }
-        });
+                    @Override
+                    public void onError(@NonNull Throwable throwable) {
+                        launchError(throwable);
+                    }
+                });
     }
 
     private void getVenues(VenueService venueService) {
@@ -61,10 +66,10 @@ public class VenuesActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Venue> result) {
                 new Handler(Looper.getMainLooper()).post(() -> {
-                        binding.progressBar.setVisibility(View.GONE);
-                        binding.recyclerViewVenue.setVisibility(View.VISIBLE);
-                        venuesAdapter.load(result);
-                    }
+                            binding.progressBar.setVisibility(View.GONE);
+                            binding.recyclerViewVenue.setVisibility(View.VISIBLE);
+                            venuesAdapter.load(result);
+                        }
                 );
             }
 
@@ -82,7 +87,8 @@ public class VenuesActivity extends AppCompatActivity {
     private void launchMessage(String message) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
-                .setPositiveButton("ok", (dialogInterface, i) -> {})
+                .setPositiveButton("ok", (dialogInterface, i) -> {
+                })
                 .create()
                 .show();
     }
