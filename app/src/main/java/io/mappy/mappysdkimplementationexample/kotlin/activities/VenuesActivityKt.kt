@@ -1,5 +1,6 @@
 package io.mappy.mappysdkimplementationexample.kotlin.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -27,13 +28,14 @@ import androidx.compose.ui.unit.dp
 import io.bemappy.sdk.models.Venue
 import io.bemappy.sdk.services.auth.Mappy
 import io.bemappy.sdk.services.venue.VenueService
+import io.mappy.mappysdkimplementationexample.R
 import io.mappy.mappysdkimplementationexample.kotlin.views.LoadingView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @ExperimentalFoundationApi
-class VenuesActivityKt: AppCompatActivity() {
+class VenuesActivityKt : AppCompatActivity() {
 
     private val mappy by lazy {
         Mappy.createInstance(this)
@@ -45,6 +47,7 @@ class VenuesActivityKt: AppCompatActivity() {
 
     private val venues = mutableStateOf(emptyList<Venue>())
 
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,7 +63,10 @@ class VenuesActivityKt: AppCompatActivity() {
     private fun getVenues() {
         CoroutineScope(Dispatchers.IO).launch {
             kotlin.runCatching {
-                mappy.initialize(CLIENT_ID, CLIENT_SECRET)
+                mappy.initialize(
+                    getString(R.string.client_id),
+                    getString(R.string.client_secret)
+                )
                 venueService.getVenues()
             }.onSuccess {
                 venues.value = it
@@ -99,7 +105,7 @@ class VenuesActivityKt: AppCompatActivity() {
         ) {
             Column(
                 modifier = Modifier.padding(10.dp)
-            ){
+            ) {
                 Text(
                     text = venue.data.name,
                     fontWeight = FontWeight.ExtraBold
@@ -115,7 +121,6 @@ class VenuesActivityKt: AppCompatActivity() {
             }
         }
     }
-
 
 
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Mappy SDK Implementation Example</string>
+
+    <string name="client_id">htj305tKniNjYExlxZZ5hRhQDfrVkqpS</string>
+    <string name="client_secret">jrUsGMK-fWmcHDx2D0NmEl-7op7YUkKLtlwbM7tY62Oc6cT6kiT2KSWKL2QDK9Wo</string>
 </resources>

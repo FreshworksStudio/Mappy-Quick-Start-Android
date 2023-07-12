@@ -5,14 +5,6 @@ buildscript {
             mavenCentral()
             mavenLocal()
             maven { url = uri("https://esri.jfrog.io/artifactory/arcgis") }
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/beMappy/Mappy-Kotlin")
-                credentials {
-                    username = ""
-                    password = ""
-                }
-            }
         }
     }
 }
@@ -23,12 +15,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "io.mappy.mappysdkimplementationexample"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -60,22 +52,23 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-alpha07"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
 
-    implementation "androidx.activity:activity-compose:1.4.0"
-    implementation "androidx.compose.material:material:1.1.1"
-    implementation "androidx.compose.animation:animation:1.1.1"
-    implementation "androidx.compose.ui:ui-tooling:1.1.1"
-    implementation  "androidx.compose.runtime:runtime-livedata:1.1.1"
-    implementation "androidx.compose.ui:ui-test-junit4:1.1.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
+    implementation "androidx.activity:activity-compose:1.7.2"
+    implementation "androidx.compose.material:material:1.4.3"
+    implementation "androidx.compose.animation:animation:1.4.3"
+    implementation "androidx.compose.ui:ui-tooling:1.4.3"
+    implementation  "androidx.compose.runtime:runtime-livedata:1.4.3"
+    implementation "androidx.compose.ui:ui-test-junit4:1.4.3"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
 
-    implementation("io.mappy.sdk:mappy:0.2.1")
+    // Mappy SDK
+    implementation 'io.github.bemappy:mappy:0.10.11'
 }
