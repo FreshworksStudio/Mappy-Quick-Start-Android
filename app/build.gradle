@@ -70,5 +70,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
 
     // Mappy SDK
-    implementation 'io.github.bemappy:mappy:0.10.11'
+    implementation 'io.github.bemappy:mappy:0.10.15'
 }

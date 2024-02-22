@@ -47,7 +47,7 @@ public class VenuesActivity extends AppCompatActivity {
 
     private void initializeMappy(Mappy mappy, VenueService venueService) {
         binding.progressBar.setVisibility(View.VISIBLE);
-        mappy.initialize(getString(R.string.client_id), getString(R.string.client_secret),
+        mappy.initialize(getString(R.string.client_id), getString(R.string.client_secret), null, false,
                 null, new CompletionCallback<String>() {
                     @Override
                     public void onSuccess(String result) {

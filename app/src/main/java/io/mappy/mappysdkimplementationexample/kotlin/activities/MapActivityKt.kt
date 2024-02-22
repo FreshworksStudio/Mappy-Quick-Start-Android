@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.bemappy.sdk.loadables.Map
 import io.bemappy.sdk.loadables.Scene
-import io.bemappy.sdk.models.BreadcrumbPayload
+import io.bemappy.sdk.models.AppTrackingInfo
 import io.bemappy.sdk.models.Venue
 import io.bemappy.sdk.services.tracking.TrackingService
 import io.bemappy.sdk.ui.compose.ComposableMapView.MapView
@@ -175,7 +175,7 @@ class MapActivityKt : AppCompatActivity() {
         _mapState.value = MapState.Loading(0)
 
         TrackingService.createInstance(context).changeTrackingPayload(
-            BreadcrumbPayload(
+            AppTrackingInfo(
                 selectedResort = venue.data.name
             )
         )
